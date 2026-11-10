@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#fff4d9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="童趣聖經">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<title>童趣聖經｜天天讀一點</title>
+<style>
+:root{--ink:#334155;--muted:#718096;--paper:#fffdf6;--cream:#fff4d9;--yellow:#ffd76b;--coral:#ff927e;--mint:#8ed9bd;--blue:#8ec9f4;--purple:#c4b4f5;--shadow:0 8px 22px #6b5b3b18}
+*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:#fff8e9;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC",sans-serif;font-size:24px}
+button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.top{position:sticky;top:0;z-index:5;background:#fff8e9ee;backdrop-filter:blur(12px);padding:calc(env(safe-area-inset-top) + 9px) 15px 10px;border-bottom:1px solid #f1e5cc}
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:28.5px}.logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(145deg,#ffe58c,#ffae91);display:grid;place-items:center;font-size:37.5px;box-shadow:0 4px 0 #e8bd75}
+.smallbtn{background:white;border:1px solid #f0e4cd;border-radius:14px;padding:9px 12px;color:#526174;font-weight:800;box-shadow:0 3px 0 #eadfc9}
+main{max-width:760px;margin:auto;padding:16px 14px calc(30px + env(safe-area-inset-bottom))}
+.hero{background:linear-gradient(135deg,#ffe79d,#ffd1b9);border-radius:25px;padding:19px 18px;margin:7px 0 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"☀️";position:absolute;right:12px;top:4px;font-size:97.5px;opacity:.65}
+.hero h1{font-size:34.5px;margin:0 0 7px;font-weight:950}.hero p{margin:0;line-height:1.6;font-size:21px;max-width:78%}
+.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:19px 3px 11px;font-weight:900;font-size:25.5px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{padding:9px 15px;border-radius:99px;background:white;color:#667085;font-weight:800;border:1px solid #f0e5d1}.pill.active{background:#34445c;color:white;border-color:#34445c}
+.bookgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.bookcard{display:flex;align-items:center;gap:10px;text-align:left;background:white;border:1px solid #f1e7d5;border-radius:18px;padding:12px;box-shadow:0 4px 0 #eee4d3;min-height:68px;color:var(--ink)}
+.bookemoji{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-size:33px;flex:none;background:#fff0c2}
+.bookname{font-weight:900;font-size:22.5px}.bookmeta{font-size:16.5px;color:#8993a3;margin-top:3px}
+.chaptergrid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.chapterbtn{background:white;border:1px solid #f0e5d1;border-radius:15px;padding:13px 4px;font-weight:900;font-size:25.5px;color:#536174;box-shadow:0 3px 0 #eee4d3}
+.readerhead{background:white;border-radius:20px;padding:14px 15px;box-shadow:var(--shadow);margin:8px 0 13px}
+.reader-title{font-weight:950;font-size:31.5px}.reader-sub{color:#8993a3;font-size:18px;margin-top:4px}
+.progress{height:7px;background:#f2eadb;border-radius:99px;margin-top:11px;overflow:hidden}.progress>i{display:block;height:100%;background:linear-gradient(90deg,#91d9bb,#ffcf70);border-radius:99px}
+.hint{font-size:18px;color:#8a7b64;margin:10px 3px 13px}
+.verse{display:flex;gap:11px;align-items:flex-start;background:#fffefa;border:1px solid #f1e9db;border-radius:17px;padding:13px 14px;margin:9px 0;box-shadow:0 3px 0 #eee6d8;transition:background .15s,color .15s}
+.verse:active{transform:scale(.994)}.vnum{font-size:18px;font-weight:900;color:#b58a42;background:#fff0c7;border-radius:9px;min-width:27px;height:25px;display:grid;place-items:center;margin-top:2px}
+.vtext{font-size:25.5px;line-height:1.78;letter-spacing:.15px;flex:1;white-space:pre-wrap}
+.verse.read{background:#26364d;color:#fff;border-color:#26364d;box-shadow:0 3px 0 #1b293d}
+.verse.read .vnum{background:#51647f;color:#fff}.verse.read .vtext{color:#fff}
+.navbar{display:grid;grid-template-columns:1fr 1fr 1.2fr 1fr;gap:8px;margin:18px 0 8px}
+.navbtn{padding:13px 5px;border-radius:15px;background:white;border:1px solid #efe4d2;box-shadow:0 3px 0 #e9dfcf;font-weight:900;color:#536174}
+.navbtn.primary{background:#34445c;color:white;border-color:#34445c}
+.navbtn:disabled{opacity:.35}
+.empty{background:white;border-radius:20px;padding:25px;text-align:center;color:#8792a1}
+.footer{text-align:center;color:#a2a1a0;font-size:16.5px;padding:20px}
+.hidden{display:none!important}
+@media(min-width:600px){.bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))}.chaptergrid{grid-template-columns:repeat(8,1fr)}main{padding-left:22px;padding-right:22px}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="toprow">
+  <div class="brand"><div class="logo">📖</div><span>童趣聖經</span></div>
+  <button class="smallbtn" id="homeTop">🏡 主頁</button>
+ </div>
+</header>
+<main id="app"></main>
+<div class="footer">慢慢讀、天天讀，讓話語陪伴每一天 ✨</div>
+<script src="bible-data.js"></script>
+<script>
+const DB=window.BIBLE_DB;
+const app=document.getElementById('app');
+const key='KIDS_BIBLE_READER_V1';
+const state=(()=>{try{return JSON.parse(localStorage.getItem(key))||{read:[],last:null}}catch(e){return{read:[],last:null}}})();
+let screen='home', testament='全部', currentBook=null,currentChapter=1;
+const bookMap=Object.fromEntries(DB.books.map(b=>[b.id,b]));
+const byBook={};
+DB.books.forEach(b=>byBook[b.id]={});
+DB.verses.forEach(v=>{(byBook[v[0]][v[1]]??=[]).push(v)});
+function save(){localStorage.setItem(key,JSON.stringify(state))}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function scrollTop(){window.scrollTo({top:0,behavior:'instant'})}
+function bookEmoji(i){return ['🌱','🌊','🕊️','🏕️','🧭','🛡️','🦁','🌾','👑','🏰','⚔️','🏛️'][i%12]}
+function home(){
+ screen='home';
+ const old=DB.books.filter((b,i)=>i<39),neo=DB.books.filter((b,i)=>i>=39);
+ app.innerHTML=`<section class="hero"><h1>一起來讀神的話！🌈</h1><p>點選書卷、章節開始閱讀。讀過的經文會變成深色，幫你記住上次讀到哪裡。</p></section>
+ <div class="sectiontitle">📚 選擇聖經書卷 <span style="font-size:18px;color:#9299a5">共 66 卷</span></div>
+ <div class="pills"><button class="pill ${testament==='全部'?'active':''}" data-test="全部">全部</button><button class="pill ${testament==='舊約'?'active':''}" data-test="舊約">舊約</button><button class="pill ${testament==='新約'?'active':''}" data-test="新約">新約</button></div>
+ <div id="books" class="bookgrid" style="margin-top:12px"></div>
+ <div class="sectiontitle">📍 繼續上次閱讀</div>
+ <div id="continue"></div>`;
+ app.querySelectorAll('[data-test]').forEach(b=>b.onclick=()=>{testament=b.dataset.test;home()});
+ const list=DB.books.filter(b=>testament==='全部'||b.testament===testament);
+ document.getElementById('books').innerHTML=list.map(b=>{const i=DB.books.indexOf(b),count=Object.keys(byBook[b.id]).length;return `<button class="bookcard" data-book="${b.id}"><span class="bookemoji">${bookEmoji(i)}</span><span><span class="bookname">${b.name}</span><span class="bookmeta">${b.testament}・${count} 章</span></span></button>`}).join('');
+ app.querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>showChapters(b.dataset.book));
+ const cont=document.getElementById('continue');
+ if(state.last&&bookMap[state.last.book]){const lb=bookMap[state.last.book];cont.innerHTML=`<button class="bookcard" style="width:100%" id="continueBtn"><span class="bookemoji">⭐</span><span><span class="bookname">${lb.name} 第 ${state.last.chapter} 章</span><span class="bookmeta">上次讀到第 ${state.last.verse} 節・點此繼續</span></span></button>`;document.getElementById('continueBtn').onclick=()=>openChapter(state.last.book,state.last.chapter,state.last.verse)}
+ else cont.innerHTML='<div class="empty">還沒有閱讀紀錄，選一本書開始吧！</div>';
+ scrollTop();
+}
+function showChapters(book){
+ currentBook=book;screen='chapters';const b=bookMap[book],chs=Object.keys(byBook[book]).map(Number).sort((a,b)=>a-b);
+ app.innerHTML=`<section class="hero"><h1>📘 ${b.name}</h1><p>選擇想閱讀的章節。每一章都是一段新的旅程！</p></section>
+ <div class="sectiontitle"><span>選擇章節</span><button class="smallbtn" id="backBooks">← 書卷目錄</button></div><div class="chaptergrid">${chs.map(ch=>`<button class="chapterbtn" data-ch="${ch}">${ch}</button>`).join('')}</div>`;
+ app.querySelectorAll('[data-ch]').forEach(x=>x.onclick=()=>openChapter(book,Number(x.dataset.ch)));
+ document.getElementById('backBooks').onclick=home;scrollTop();
+}
+function openChapter(book,ch,focusVerse){
+ currentBook=book;currentChapter=ch;screen='reader';const b=bookMap[book],arr=byBook[book][ch]||[];
+ const readCount=arr.filter(v=>state.read.includes(`${book}:${ch}:${v[2]}`)).length;
+ app.innerHTML=`<div class="readerhead"><div class="reader-title">📖 ${b.name} 第 ${ch} 章</div><div class="reader-sub">已讀 ${readCount} / ${arr.length} 節　・　點擊經文即可標記已讀</div><div class="progress"><i style="width:${arr.length?readCount/arr.length*100:0}%"></i></div></div>
+ <div class="hint">👆 點一下經文，背景變深色即代表已讀；再次點擊可取消標記。</div>
+ <div id="verses">${arr.map(v=>{const id=`${book}:${ch}:${v[2]}`,r=state.read.includes(id);return `<button class="verse ${r?'read':''}" data-verse="${v[2]}" id="verse-${v[2]}"><span class="vnum">${v[2]}</span><span class="vtext">${esc(v[3])}</span></button>`}).join('')}</div>
+ <div class="navbar"><button class="navbtn" id="prev">← 上一章</button><button class="navbtn" id="home">🏡 主頁</button><button class="navbtn primary" id="chapters">章節目錄</button><button class="navbtn" id="next">下一章 →</button></div>`;
+ app.querySelectorAll('[data-verse]').forEach(el=>el.onclick=()=>{
+  const n=Number(el.dataset.verse),id=`${book}:${ch}:${n}`,idx=state.read.indexOf(id);
+  if(idx>=0)state.read.splice(idx,1);else state.read.push(id);
+  state.last={book,chapter:ch,verse:n};save();
+  el.classList.toggle('read',idx<0);
+  const count=arr.filter(v=>state.read.includes(`${book}:${ch}:${v[2]}`)).length;
+  app.querySelector('.reader-sub').textContent=`已讀 ${count} / ${arr.length} 節　・　點擊經文即可標記已讀`;
+  app.querySelector('.progress i').style.width=(arr.length?count/arr.length*100:0)+'%';
+ });
+ const allCh=Object.keys(byBook[book]).map(Number).sort((a,b)=>a-b),pos=allCh.indexOf(ch);
+ document.getElementById('prev').disabled=pos<=0;document.getElementById('next').disabled=pos===allCh.length-1;
+ document.getElementById('prev').onclick=()=>{if(pos>0)openChapter(book,allCh[pos-1])};
+ document.getElementById('next').onclick=()=>{if(pos<allCh.length-1)openChapter(book,allCh[pos+1])};
+ document.getElementById('home').onclick=home;document.getElementById('chapters').onclick=()=>showChapters(book);
+ state.last=state.last||{book,chapter:ch,verse:arr[0]?.[2]||1};save();
+ scrollTop();
+ if(focusVerse){requestAnimationFrame(()=>{const target=document.getElementById('verse-'+focusVerse);if(target)target.scrollIntoView({block:'start'});});}
+}
+document.getElementById('homeTop').onclick=home;
+if(state.last&&bookMap[state.last.book])openChapter(state.last.book,state.last.chapter,state.last.verse);else home();
+</script>
+</body>
+</html>
